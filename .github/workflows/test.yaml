@@ -1,0 +1,26 @@
+name: test
+on:
+  push:
+    branches:
+      - "**"
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macOS-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: install wasmtime
+        run: curl https://wasmtime.dev/install.sh -sSf | bash
+      - name: path wasmtime
+        run: |
+          echo "::add-path::$HOME/.wasmtime/bin"
+        if: "matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'"
+        shell: bash
+      - name: test wast
+        run: make test
