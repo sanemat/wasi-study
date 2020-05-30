@@ -8,4 +8,4 @@
     (export "fizzbuzz" (func $fizzbuzz))
     (export "_start" (func $main))
 )
-(assert_return (invoke "fizzbuzz" (i32.const 0)) (i32.const 1))
+(assert_return (invoke "fizzbuzz" (i32.const 0)) (i32.const 0))
